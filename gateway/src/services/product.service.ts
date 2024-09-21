@@ -9,4 +9,16 @@ export class ProductService {
   async createProduct(req:IProduct) {
     return  this.gatewayService.send('product_create', req)
   }
+  updateProduct(req:IProduct) {
+    // if(!req.id){
+    //   throw new Error('product id must be specified')
+    // }
+    return this.gatewayService.send('product_update', req)
+  }
+  async deleteProduct(req:IProduct) {
+    // if(!req.id){
+    //   throw new Error('product id must be specified')
+    // }
+    return  this.gatewayService.send('product_delete', req)
+  }
 }

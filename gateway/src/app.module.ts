@@ -12,21 +12,10 @@ import {ClientsModuleAsyncOptions} from "@nestjs/microservices/module/interfaces
   }), ClientsModule.registerAsync({clients:[{inject:[ConfigService], imports:[ConfigModule], name:"GATEWAY_SERVICE"
   ,useFactory:(configService: ConfigService)=>({name:"GATEWAY_SERVICE",
         transport:Transport.KAFKA,
-        options:{client:{clientId:'gateway',
+            options:{client:{clientId:'gateway',
                       brokers:[ configService.get<string>('KAFKA_HOST')],},consumer:{groupId:'gateway-group'},}})//producer:{createPartitioner()}
   }] as Array<ClientsProviderAsyncOptions>} as ClientsModuleAsyncOptions)],
   controllers: [ProductController],
   providers: [ProductService, ],
 })
 export class AppModule {}
-
-// {
-//     provide: 'GATEWAY_SERVICE',
-//         useFactory: (configService: ConfigService) => {
-//     return ClientProxyFactory.create({
-//         options:{client:{clientId:'gateway',
-//                 brokers:[ configService.get<string>('KAFKA_HOST')],},//configService.get<string>('KAFKA_HOST')
-//             consumer:{groupId:'gateway-consumer'}, name:'GATEWAY_SERVICE'}, transport:Transport.KAFKA} as KafkaOptions
-//     );},
-//     inject: [ConfigService],
-// }

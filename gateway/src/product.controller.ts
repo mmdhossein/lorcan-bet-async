@@ -1,9 +1,9 @@
-import {Body, Controller, Get, Inject, Post} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Inject, Post, Put} from '@nestjs/common';
 import { ProductService } from './services/product.service';
 import {IProduct} from "./services/interfaces/product.interface";
 import {ClientKafka} from "@nestjs/microservices";
 import {ApiBody} from "@nestjs/swagger";
-import {CreateProductDto} from "./services/dtos/product.dto";
+import {ProductDto} from "./services/dtos/product.dto";
 import {Kafka} from "kafkajs";
 
 @Controller('product')
@@ -19,6 +19,8 @@ export class ProductController {
 
   async onModuleInit() {
     this.client.subscribeToResponseOf('product_create');
+    this.client.subscribeToResponseOf('product_update');
+    this.client.subscribeToResponseOf('product_delete');
     const kafka = new Kafka({
       clientId: 'gateway',
       brokers: [process.env.KAFKA_HOST],
@@ -47,8 +49,21 @@ export class ProductController {
   // @ApiBearerAuth('authorization')
   // @ApiOkResponse({status:201})
   @ApiBody({
-    type:CreateProductDto })
+    type:ProductDto })
   async createProduct(@Body() req: IProduct) {
     return await this.appService.createProduct(req);
+  }
+  @Put()
+  @ApiBody({
+    type:ProductDto })
+  async updateProduct(@Body() req: IProduct) {
+      const r = await this.appService.updateProduct(req);
+      return r
+  }
+  @Delete()
+  @ApiBody({
+    type:ProductDto })
+  async deleteProduct(@Body() req: IProduct) {
+    return await this.appService.deleteProduct(req);
   }
 }
