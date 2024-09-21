@@ -1,0 +1,30 @@
+
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS:
+        "INTERNAL://kafka:9090,\
+         EXTERNAL://:9092"
+      KAFKA_ADVERTISED_LISTENERS:
+        "INTERNAL://kafka:9090,\
+         EXTERNAL://185.110.189.239:9092"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP:
+        "INTERNAL:PLAINTEXT,\
+         EXTERNAL:PLAINTEXT"
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_BROKER_ID: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+    #command: ["sh", "-c", "
+     # kafka-topics.sh --create --topic gateway-consumer --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1 &&
+      #kafka-server-start.sh /opt/kafka/config/server.properties"]
+    gateway:
+    docker exec --workdir /opt/kafka/bin/ -it broker sh ====> go to kafka docker container and run below script
+    ./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic test-topic  
