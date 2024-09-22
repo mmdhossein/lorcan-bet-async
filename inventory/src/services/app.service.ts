@@ -8,8 +8,13 @@ export class InventoryService {
   
   //this should be transactional
 //todo this should run in async retry manner? package: async-retry
-     async reserveInventory(productId:number, quantity:number) {
+    //to handle idempotent operations, we need to introduce command field in "order log", once reserve product event reached inventory, we check that can we find a record where: {command:RESERVE, status:SUCCESS}
+    //if there was a record we don't need to process it but, inventory needs to emit to order microservice that should resume payment
+    //we will do the same in payment microservice we again check {command:PAY, status:SUCCESS} in our records to find out should we need to process payment or not
+     async reserveInventory(productId:number, quantity:number, orderId:number) {
         try {
+
+            await this.inventoryRepository.find({where:{orderId}})
           //check inventory if we have enough quantity and deduce it, can you do it as a procedure or transactional
           //in condition of not enough send error message
           await this.inventoryRepository.manager.transaction( async (tranasctionalEntityManager:EntityManager)=>{
