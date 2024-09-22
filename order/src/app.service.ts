@@ -46,7 +46,7 @@ export class OrderService {
      await this.orderRepository.save(order)
    }
    
-   let payment = await this.orderBrokerServices.send('payment_inquiry', orderId)
+   let payment = await this.orderBrokerServices.send('payment_inquiry', order)
    if(!payment || payment.status != true){
     console.log(`payment inquiry was not found for orderId: ${orderId}`)
    payment = await this.orderBrokerServices.send('payment_new', order)
@@ -61,7 +61,7 @@ export class OrderService {
    
      console.log(`payment success`)
      const order = await this.orderRepository.find({where:{orderId}})
-     order.status = OrderStatus.FAILED
+     order.status = OrderStatus.SUCCESS
      await this.orderRepository.save(order)
    
    
