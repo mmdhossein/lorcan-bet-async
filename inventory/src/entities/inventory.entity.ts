@@ -6,8 +6,9 @@ export class Inventory {
     id: number;
 
     @Column()
-    @OneToMany()
-    productId: string;
+    @OneToOne(()=>Product)
+    @JoinColumn()
+    product: Product;//todo check this is id if relations:{product:false}
 
     @Column()
     quantity: number;
