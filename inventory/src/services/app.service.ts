@@ -19,6 +19,7 @@ export class InventoryService {
             if(inventory.quantity >= quantity){
               inventory.quantity -= quantity
               await tranasctionalEntityManager.save(inventory)
+              return {inventory}
             }else{
               return {error:`inventory quantity is not sufficient, quantity available: ${inventory.quantity}`}
             }
