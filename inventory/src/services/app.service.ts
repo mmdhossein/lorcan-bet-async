@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {Inject, Injectable} from '@nestjs/common';
+import {InjectRepository} from "@nestjs/typeorm";
+import {Inventory} from "../entities/inventory.entity";
+import {OrderLog, ProcessCommand, ProcessStatus} from "../interface/log.interface";
+import {EntityManager, Repository} from "typeorm";
+import * as retry from 'async-retry'
 
 @Injectable()
 export class InventoryService {
@@ -21,27 +26,45 @@ export class InventoryService {
                await this.inventoryBrokerServices.emit('order_payment_new', {orderId})
                return;
            }
-          //check inventory if we have enough quantity and deduce it, can you do it as a procedure or transactional
-          //in condition of not enough send error message
-          await this.inventoryRepository.manager.transaction( async (tranasctionalEntityManager:EntityManager)=>{
-            const inventory = await tranasctionalEntityManager.createQueryBuilder(Inventory, 'inventory').setLocak('pessimistic_write').where('inventory.productId = :productId', {productId}).getOne()
-            if(!inventory){
-              return {error:`inventory for product id: ${productId} not found`}
-            }
-            if(inventory.quantity >= quantity){
-              inventory.quantity -= quantity
-              await tranasctionalEntityManager.save(inventory)
-              console.log(`product reservation done for orderId: ${orderId}`)
-              console.log(`event will be emitted for order_payment_new`)
-              await this.inventoryBrokerServices.emit('order_payment_new', {orderId})
-               return;
-            }else{
-              return {error:`inventory quantity is not sufficient, quantity available: ${inventory.quantity}`}
-            }
-          })
-        
-            console.log('reserveInventory')
-            return result
+            await retry(
+                async (bail, attempt) => {
+                    // if anything throws, we retry
+                    // const res = await fetch('https://google.com');
+                    //check inventory if we have enough quantity and deduce it, can you do it as a procedure or transactional
+                    //in condition of not enough send error message
+                    await this.inventoryRepository.manager.transaction( async (tranasctionalEntityManager:EntityManager)=>{
+                        const inventory = await tranasctionalEntityManager.createQueryBuilder(Inventory, 'inventory').setLock('pessimistic_write').where('inventory.productId = :productId', {productId}).getOne()
+                        if(!inventory){
+                            return {error:`inventory for product id: ${productId} not found`}
+                        }
+                        if(inventory.quantity >= quantity){
+                            inventory.quantity -= quantity
+                            await tranasctionalEntityManager.save(inventory)
+                            console.log(`product reservation done for orderId: ${orderId}`)
+                            console.log(`event will be emitted for order_payment_new`)
+                            await this.inventoryBrokerServices.emit('order_payment_new', {orderId, success:true})
+                            return;
+                        }else{
+                            return {error:`inventory quantity is not sufficient, quantity available: ${inventory.quantity}`}
+                        }
+                    })
+
+                    console.log('reserveInventory')
+                    return
+
+                    // if (403 === res.status) {
+                    //     // don't retry upon 403
+                    //     bail(new Error('Unauthorized'));
+                    //     return;
+                    // }
+                    // const data = await res.text();
+                    // return data.substr(0, 500);
+                },
+                {
+                    retries: 5,
+                }
+            );
+
         } catch (e) {
             return {error: e.message}
         }

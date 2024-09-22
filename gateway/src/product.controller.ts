@@ -39,7 +39,21 @@ export class ProductController {
         topic: 'product-group',
         numPartitions: 1,
         replicationFactor: 1,
-      }],
+      },
+        {
+          topic: 'payment-group',
+          numPartitions: 1,
+          replicationFactor: 1,
+        },
+        {
+          topic: 'inventory-group',
+          numPartitions: 1,
+          replicationFactor: 1,
+        }, {
+          topic: 'order-group',
+          numPartitions: 1,
+          replicationFactor: 1,
+        }],
     });
     await this.client.connect()
   }

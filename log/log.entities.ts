@@ -6,9 +6,9 @@ export class OrderLog {
     id: number;
 
     @Column()
-    @ManyToMany(()=>Product)
+    @ManyToMany(()=>Order)
     @JoinColumn()
-    order: Product;//todo check this is id if relations:{product:false}
+    order: Order;//todo check this is id if relations:{product:false}
 
     @Column()
     status: OrderStatus;

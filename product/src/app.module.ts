@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './services/app.service';
+import { ProductService } from './services/app.service';
 import {TypeOrmModule, TypeOrmModuleAsyncOptions} from "@nestjs/typeorm";
 import {Product} from "./entities/product.entity";
 import {ConfigModule, ConfigService} from "@nestjs/config";
@@ -33,7 +33,7 @@ import {ClientsModuleAsyncOptions} from "@nestjs/microservices/module/interfaces
 
 ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [ProductService],
   exports:[ConfigModule]
 })
 export class AppModule {}
