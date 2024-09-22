@@ -10,5 +10,7 @@ export class Order {
     product: Product;//todo check this is id if relations:{product:false}
     @Column()
     quantity: number;
+    @Column()
+    status:OrderStatus
 
 }
