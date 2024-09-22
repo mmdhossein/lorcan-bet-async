@@ -7,6 +7,7 @@ export class InventoryService {
     }
   
   //this should be transactional
+//todo this should run in async retry manner? package: async-retry
      async reserveInventory(productId:number, quantity:number) {
         try {
           //check inventory if we have enough quantity and deduce it, can you do it as a procedure or transactional
