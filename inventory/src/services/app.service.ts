@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class InventoryService {
-    constructor(@InjectRepository(Inventory) private inventoryRepository: Repository<Inventory>) {
+    constructor(@InjectRepository(Inventory) private inventoryRepository: Repository<Inventory>,
+                @InjectRepository(OrderLog) private orderLogRepository: Repository<OrderLog>, @Inject('INVENTORY_SERVICE') private inventoryBrokerServices: ClientKakfa) {
 
     }
   
@@ -14,7 +15,12 @@ export class InventoryService {
      async reserveInventory(productId:number, quantity:number, orderId:number) {
         try {
 
-            await this.inventoryRepository.find({where:{orderId}})
+          const inventoryProcess = await this.orderLogRepository.find({where:{command:ProcessCommand.RESERVE, status:ProcessStatus.SUCCESS, orderId:orderId}})
+           if(inventoryProcess){
+               console.log(`found duplicate inventory reservation request for orderId: ${orderId}`)
+               await this.inventoryBrokerServices.emit('order_payment_new', {orderId})
+               return;
+           }
           //check inventory if we have enough quantity and deduce it, can you do it as a procedure or transactional
           //in condition of not enough send error message
           await this.inventoryRepository.manager.transaction( async (tranasctionalEntityManager:EntityManager)=>{
@@ -25,7 +31,10 @@ export class InventoryService {
             if(inventory.quantity >= quantity){
               inventory.quantity -= quantity
               await tranasctionalEntityManager.save(inventory)
-              return {inventory}
+              console.log(`product reservation done for orderId: ${orderId}`)
+              console.log(`event will be emitted for order_payment_new`)
+              await this.inventoryBrokerServices.emit('order_payment_new', {orderId})
+               return;
             }else{
               return {error:`inventory quantity is not sufficient, quantity available: ${inventory.quantity}`}
             }
