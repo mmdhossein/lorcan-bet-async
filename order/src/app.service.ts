@@ -22,12 +22,49 @@ export class OrderService {
     }
   }
 
- async  processOrderAfterInventory(){
-    //decide to emit payment or emit release inventory
+ async  processOrderAfterInventory(orderId:number, success:boolean){
+   //if inventory emit success:false then we release inventory
+   //check orderLog {command:PAY, status:SUCCESS} if record was exists then we only update order.status to SUCCESS otherwise we try to call  payment service
     //in case of payment it should call payment service in exponential backoff style and after any retry it should log the result in log order
-   //once payment was done it should update order status to SUCCESS and after that call payment confirm
-   ///in case of payment multiple failure it should update order status to FAILED
+   //once payment was done it should update order.status to SUCCESS
+   ///in case of payment multiple failure it should update order status to FAILED and release inventory
    //any retry should have order log
+   //incase system was interupted during retry mechanism, a schaduled task will take a look at order table and will retry all pendding orders by emiting them inventory_new_order for inventory, to emit further needed events, that makes the whole system consistent
+
+    if(attempt >= 5){
+     console.log(`payment attempt reached its maximum retries, order will be failed and inventory will be released`)
+     const order = await this.orderRepository.find({where:{orderId}})
+     order.status = OrderStatus.FAILED
+     await this.orderRepository.save(order)
+     await this.orderBrokerServices.emit('inventory_release', order)
+   }
+
+     if(!success){
+     console.log(`inventory state is FAILED, so order will be failed`)
+     const order = await this.orderRepository.find({where:{orderId}})
+     order.status = OrderStatus.FAILED
+     await this.orderRepository.save(order)
+   }
+   
+   let payment = await this.orderBrokerServices.send('payment_inquiry', orderId)
+   if(!payment || payment.status != true){
+    console.log(`payment inquiry was not found for orderId: ${orderId}`)
+   payment = await this.orderBrokerServices.send('payment_new', order)
+
+   }else{
+     console.log(`payment inquiry indicates it was successful`)
+   }
+   if(!payment || payment.status == false){
+     console.error(`payment failed`)
+     throw new Error("payment failed")
+   }
+   
+     console.log(`payment success`)
+     const order = await this.orderRepository.find({where:{orderId}})
+     order.status = OrderStatus.FAILED
+     await this.orderRepository.save(order)
+   
+   
   }
   
  
