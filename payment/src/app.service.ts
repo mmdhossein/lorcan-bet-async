@@ -7,10 +7,10 @@ import {InjectRepository} from "@nestjs/typeorm";
 export class PaymentService {
     constructor(@InjectRepository(Payment) private paymentRepository: Repository<Payment>) {
     }
+
     // Simulate a random failure, timeout, or success
     async processPayment(orderId: number, amount: number) {
         const random = Math.random();
-
         if (random < 0.2) {
             return {
                 error: `Payment for order ${orderId} failed due to insufficient funds`
@@ -25,11 +25,13 @@ export class PaymentService {
         payment.amount = amount
         payment.status = true
         await this.paymentRepository.save(payment)
-        return {success:true, message:`Payment for order ${orderId} processed successfully`
-    };
+        return {
+            success: true, message: `Payment for order ${orderId} processed successfully`
+        };
     }
-    async paymentInquiry(orderId:number){
-        return this.paymentRepository.findOne({where:{orderId}})
+
+    async paymentInquiry(orderId: number) {
+        return this.paymentRepository.findOne({where: {orderId}})
     }
 
     private async simulateTimeout(duration: number): Promise<unknown> {

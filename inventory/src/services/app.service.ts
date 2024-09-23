@@ -73,11 +73,12 @@ export class InventoryService {
                                 console.log('saved?', r)
                                 log.status = ProcessStatus.SUCCESS
                                 console.log(`product reservation done for orderId: ${order.id}`)
-                                console.log(`event will be emitted for order_payment`)
                                 await this.inventoryBrokerServices.emit('order_payment', {
                                     orderId: order.id,
                                     amount: order.quantity * order.product.price
                                 })
+                                console.log(`event emitted for order_payment`)
+
                             } else {
                                 log.errorMessage = `inventory quantity is not sufficient for orderId:${order.id}, quantity available: ${inventory.quantity}`
                                 log.status = ProcessStatus.FAILED
@@ -122,5 +123,17 @@ export class InventoryService {
         } catch (e) {
             return {error: e.message}
         }
+    }
+
+    //i wrote query builder to release the inventory, that way we can prevent dirty writes
+    async releaseInventory(productId:number, quantity:number){
+        if(productId && quantity){
+            await  this.inventoryRepository.createQueryBuilder()
+                .update(Inventory)
+                .set({ quantity: () => `quantity + ${quantity}` })
+                .where(`product = :productId`, {productId})
+                .execute();
+        }
+
     }
 }

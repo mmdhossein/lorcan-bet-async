@@ -6,8 +6,8 @@ import {ClientKafka} from "@nestjs/microservices";
 import {OrderStatus} from "./order.enum";
 import {OrderLog, ProcessCommand, ProcessStatus} from "./entities/log.entity";
 import * as retry from 'async-retry'
-import { catchError, firstValueFrom } from 'rxjs';
-import {Product} from "./entities/product.entity";
+import {firstValueFrom} from 'rxjs';
+
 @Injectable()
 export class OrderService {
     constructor(@Inject('ORDER_SERVICE') private orderBrokerServices: ClientKafka,
@@ -24,7 +24,7 @@ export class OrderService {
         log.processedAt = new Date()
         try {
             const order = await this.orderRepository.save(newOrderDto, {})
-            const newOrder = await this.orderRepository.findOne({where:{id:order.id}, relations:{product:true}})
+            const newOrder = await this.orderRepository.findOne({where: {id: order.id}, relations: {product: true}})
             log.orderId = order.id
             console.log("order: ", newOrder)
             console.log(`order is saved id: ${order.id}`)
@@ -59,11 +59,20 @@ export class OrderService {
         })
         if (orderPaymentLog) {
             console.log(`found duplicate order payment request for orderId: ${orderId}, payment already successful`)
-
+            await this.orderRepository.update({id: orderId}, {status: OrderStatus.SUCCESS})
+            return;
+        }
+        const order = await this.orderRepository.findOne({where: {id: orderId}, relations: {product: true}})
+        if(order.status != OrderStatus.PENDING){
+            console.log(`orderId:${orderId} was already processed`)
             return;
         }
 
         await retry(async (bail, attempt) => {
+            if (!orderId) {
+                console.log('orderId must not be empty')
+                return;
+            }
             const log = new OrderLog()
             log.orderId = orderId
             log.command = ProcessCommand.PAY
@@ -71,22 +80,30 @@ export class OrderService {
             console.log(`order payment attempt no : ${attempt}`)
             console.log(`order payment orderId: ${orderId}`)
 
-            try{
-                if (attempt >= 6) {
+            try {
+                if (attempt == 6) {
                     log.errorMessage = `payment attempt reached its maximum retries, order will be failed and inventory will be released orderId:${orderId}`
                     console.error(log.errorMessage)
-                    // await this.orderBrokerServices.emit('order_failed', {orderId})
-                    await this.orderRepository.update({id:orderId}, {status:OrderStatus.FAILED})
-                    await this.orderBrokerServices.emit('inventory_release', {orderId})
+
+                    await this.orderRepository.save({id: orderId, status: OrderStatus.FAILED}, {})
+                    await this.orderBrokerServices.emit('inventory_release', {
+                        productId: order.product.id,
+                        quantity: order.quantity
+                    })
+                    console.log('sent event inventory_release to release product')
+                    return;
+                }else if(attempt>6){
                     return
                 }
 
                 let payment = await firstValueFrom(await this.orderBrokerServices.send('payment_inquiry', {orderId}))
                 if (!payment || payment.status != true) {
                     console.log(`payment was not found for orderId: ${orderId}`)
-                    payment = await firstValueFrom(await this.orderBrokerServices.send('payment_create', {orderId, amount}))
+                    payment = await firstValueFrom(await this.orderBrokerServices.send('payment_create', {
+                        orderId,
+                        amount
+                    }))
                     if (!payment || payment.error || payment.status == false) {
-
                         console.error(`payment request failed, error: ${payment?.error}`)
                         throw new Error(log.errorMessage)
                     }
@@ -103,13 +120,14 @@ export class OrderService {
                     log.status = ProcessStatus.FAILED
                     throw new Error('payment failed')
                 }
-            }
-            catch (e) {
+            } catch (e) {
                 log.errorMessage = e.message
+                log.status = ProcessStatus.FAILED
                 console.error(e)
                 throw e
-            }finally {
-               await this.orderLogRepository.save(log)
+            } finally {
+                await this.orderLogRepository.save(log)
+
 
             }
 
@@ -121,7 +139,7 @@ export class OrderService {
 
     async onOrderFailure(orderId: number) {
         console.log(`order status will be FAILED`)
-        if(orderId){
+        if (orderId) {
             await this.orderRepository.save({id: orderId, status: OrderStatus.FAILED})
         }
         return

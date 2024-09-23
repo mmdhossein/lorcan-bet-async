@@ -17,9 +17,9 @@ export class AppController {
     return this.appService.createInventory(req);
   }
   @MessagePattern('inventory_release')
-  releaseProduct(req:Inventory) {
-    console.log('product released')
-    // return this.appService.createInventory(req);
+  releaseProduct(req:{productId:number, quantity:number}) {
+    console.log(`inventory_release req:`, req)
+    return this.appService.releaseInventory(req.productId, req.quantity);
   }
 
 }
