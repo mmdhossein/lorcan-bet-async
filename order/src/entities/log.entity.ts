@@ -1,17 +1,16 @@
-import {Column, Entity} from "typeorm";
+import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 export enum ProcessStatus{SUCCESS,FAILED}
-
 
 export enum ProcessCommand{
     ORDER,
     RESERVE,
     PAY
 }
-
-
 @Entity()
 export class OrderLog{
+    @PrimaryGeneratedColumn()
+    id:number
     @Column()
     status:ProcessStatus
     orderId:number
@@ -20,7 +19,6 @@ export class OrderLog{
     @Column()
     errorMessage:string
     @Column()
-    command:OrderCommand
+    command:ProcessCommand
 
 }
-

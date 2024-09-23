@@ -10,7 +10,7 @@ async function bootstrap() {
         brokers: [process.env.KAFKA_HOST],
       },
       consumer: {
-        groupId: 'payment-group',  // unique group for producer
+        groupId: 'payment-group',
       },
     },
   }as KafkaOptions);

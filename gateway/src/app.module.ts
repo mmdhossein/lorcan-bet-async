@@ -5,6 +5,8 @@ import {ClientsModule, Transport} from '@nestjs/microservices';
 import {ConfigModule, ConfigService,} from "@nestjs/config";
 import {ClientsProviderAsyncOptions} from "@nestjs/microservices/module/interfaces/clients-module.interface";
 import {ClientsModuleAsyncOptions} from "@nestjs/microservices/module/interfaces";
+import {OrderController} from "./order.controller";
+import {OrderService} from "./services/order.service";
 
 @Module({
   imports: [  ConfigModule.forRoot({
@@ -15,7 +17,7 @@ import {ClientsModuleAsyncOptions} from "@nestjs/microservices/module/interfaces
             options:{client:{clientId:'gateway',
                       brokers:[ configService.get<string>('KAFKA_HOST')],},consumer:{groupId:'gateway-group'},}})//producer:{createPartitioner()}
   }] as Array<ClientsProviderAsyncOptions>} as ClientsModuleAsyncOptions)],
-  controllers: [ProductController],
-  providers: [ProductService, ],
+  controllers: [ProductController,OrderController],
+  providers: [ProductService,OrderService ],
 })
 export class AppModule {}

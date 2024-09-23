@@ -60,8 +60,6 @@ export class ProductController {
 
 
   @Post()
-  // @ApiBearerAuth('authorization')
-  // @ApiOkResponse({status:201})
   @ApiBody({
     type:ProductDto })
   async createProduct(@Body() req: IProduct) {

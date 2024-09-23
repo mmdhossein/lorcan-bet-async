@@ -1,14 +1,14 @@
-import {Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn} from 'typeorm';
+import {Product} from "./product.entity";
 
 @Entity()
 export class Inventory {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
     @OneToOne(()=>Product)
-    @JoinColumn()
-    product: Product;//todo check this is id if relations:{product:false}
+    @JoinColumn({ name: 'product', referencedColumnName: 'id' })
+    product: Product;
 
     @Column()
     quantity: number;

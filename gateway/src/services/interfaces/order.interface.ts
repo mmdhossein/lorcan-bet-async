@@ -1,16 +1,15 @@
+import {IProduct} from "./product.interface";
+
 export enum OrderStatus {
     PENDING,
     FAILED,
     SUCCESS
 }
 
-export interface IProduct{
-    price:number
-    id:number
-}
+
 export interface IOrder {
     id: number;
-    product: IProduct;
+    product: number;//todo check this is id if relations:{product:false}
     quantity: number;
     status:OrderStatus
 
