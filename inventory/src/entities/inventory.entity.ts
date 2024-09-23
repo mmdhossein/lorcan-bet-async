@@ -1,7 +1,8 @@
-import {Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, Unique} from 'typeorm';
 import {Product} from "./product.entity";
 
 @Entity()
+@Unique("product_unique_idx", ['product'])
 export class Inventory {
     @PrimaryGeneratedColumn()
     id: number;

@@ -2,9 +2,9 @@ import {ApiProperty} from "@nestjs/swagger";
 import {IOrder, OrderStatus} from "../interfaces/order.interface";
 
 export class OrderDto implements IOrder{
-    @ApiProperty()
+    // @ApiProperty()
     status: OrderStatus;
-    @ApiProperty()
+    // @ApiProperty()
     id: number;
     @ApiProperty()
     product: number;

@@ -7,12 +7,14 @@ export class PaymentController {
   constructor(private readonly appService: PaymentService) {}
 
   @MessagePattern('payment_create')
-  payment(payment:{orderId:number, amount:number}): Promise<{ error: string } | string> {
-    return this.appService.processPayment(payment.orderId, payment.amount);
+  payment(req:{orderId:number, amount:number}){
+    console.log('payment_create received:', req)
+    return this.appService.processPayment(req.orderId, req.amount);
   }
   @MessagePattern('payment_inquiry')
-  inquiry(orderId:number) {
-    return this.appService.paymentInquiry(orderId);
+  inquiry(req:{orderId:number}) {
+    console.log('payment_inquiry received:', req)
+    return this.appService.paymentInquiry(req.orderId);
   }
 
 }

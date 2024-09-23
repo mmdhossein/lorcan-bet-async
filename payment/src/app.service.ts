@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {Repository} from "typeorm";
-import {Payment} from "./payment.entities";
+import {Payment} from "./entities/payment.entities";
 import {InjectRepository} from "@nestjs/typeorm";
 
 @Injectable()
@@ -17,7 +17,7 @@ export class PaymentService {
             }
 
         } else if (random >= 0.2 && random < 0.4) {
-            await this.simulateTimeout(10000);
+            await this.simulateTimeout(5000);
             return {error: `Payment for order ${orderId} timed out`}
         }
         const payment = new Payment()
@@ -25,7 +25,8 @@ export class PaymentService {
         payment.amount = amount
         payment.status = true
         await this.paymentRepository.save(payment)
-        return `Payment for order ${orderId} processed successfully`;
+        return {success:true, message:`Payment for order ${orderId} processed successfully`
+    };
     }
     async paymentInquiry(orderId:number){
         return this.paymentRepository.findOne({where:{orderId}})

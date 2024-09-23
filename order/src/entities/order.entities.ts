@@ -8,10 +8,10 @@ export class Order {
     id: number;
     @ManyToOne(() => Product, )
     @JoinColumn({ name: 'product', referencedColumnName: 'id' })
-    product: Product;//todo check this is id if relations:{product:false}
+    product: Product;
     @Column()
     quantity: number;
-    @Column()
+    @Column({default:OrderStatus.PENDING})
     status:OrderStatus
 
 }

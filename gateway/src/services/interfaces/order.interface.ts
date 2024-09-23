@@ -1,9 +1,9 @@
 import {IProduct} from "./product.interface";
 
 export enum OrderStatus {
-    PENDING,
-    FAILED,
-    SUCCESS
+    PENDING="PENDING",
+    FAILED="FAILED",
+    SUCCESS="SUCCESS"
 }
 
 

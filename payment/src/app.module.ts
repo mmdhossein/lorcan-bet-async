@@ -6,7 +6,7 @@ import {TypeOrmModule, TypeOrmModuleAsyncOptions} from "@nestjs/typeorm";
 import {ClientsModule, Transport} from "@nestjs/microservices";
 import {ClientsModuleAsyncOptions} from "@nestjs/microservices/module/interfaces";
 import {ClientsProviderAsyncOptions} from "@nestjs/microservices/module/interfaces/clients-module.interface";
-import {Payment} from "./payment.entities";
+import {Payment} from "./entities/payment.entities";
 
 
 @Module({
