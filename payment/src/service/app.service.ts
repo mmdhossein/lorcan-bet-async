@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {Repository} from "typeorm";
-import {Payment} from "./entities/payment.entities";
+import {Payment} from "../entities/payment.entities";
 import {InjectRepository} from "@nestjs/typeorm";
 
 @Injectable()
@@ -8,7 +8,7 @@ export class PaymentService {
     constructor(@InjectRepository(Payment) private paymentRepository: Repository<Payment>) {
     }
 
-    // Simulate a random failure, timeout, or success
+    //simulate a random failure, timeout, or success
     async processPayment(orderId: number, amount: number) {
         const random = Math.random();
         if (random < 0.2) {

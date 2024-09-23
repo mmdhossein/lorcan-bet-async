@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
+import { AppController } from './controller/app.controller';
 import { ProductService } from './services/app.service';
 import {TypeOrmModule, TypeOrmModuleAsyncOptions} from "@nestjs/typeorm";
 import {Product} from "./entities/product.entity";

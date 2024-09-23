@@ -1,10 +1,10 @@
 import {Inject, Injectable} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
-import {Order} from "./entities/order.entities";
+import {Order} from "../entities/order.entities";
 import {Repository} from "typeorm";
 import {ClientKafka} from "@nestjs/microservices";
-import {OrderStatus} from "./order.enum";
-import {OrderLog, ProcessCommand, ProcessStatus} from "./entities/log.entity";
+import {OrderStatus} from "../entities/order.enum";
+import {OrderLog, ProcessCommand, ProcessStatus} from "../entities/log.entity";
 import * as retry from 'async-retry'
 import {firstValueFrom} from 'rxjs';
 

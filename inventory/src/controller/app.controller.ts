@@ -1,8 +1,8 @@
 import { Controller } from '@nestjs/common';
-import { InventoryService } from './services/app.service';
+import { InventoryService } from '../services/app.service';
 import {EventPattern, MessagePattern,} from "@nestjs/microservices";
-import {IOrder} from "./interface/order.interface";
-import {Inventory} from "./entities/inventory.entity";
+import {IOrder} from "../entities/interface/order.interface";
+import {Inventory} from "../entities/inventory.entity";
 
 @Controller()
 export class AppController {

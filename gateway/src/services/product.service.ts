@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@nestjs/common';
 import {ClientKafka} from "@nestjs/microservices";
-import {IProduct} from "./interfaces/product.interface";
+import {IProduct} from "../entities/interfaces/product.interface";
 
 @Injectable()
 export class ProductService {

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { OrderService } from './app.service';
+import { AppController } from './controller/app.controller';
+import { OrderService } from './service/app.service';
 import {ConfigModule, ConfigService} from "@nestjs/config";
 import {TypeOrmModule, TypeOrmModuleAsyncOptions} from "@nestjs/typeorm";
 import {ClientsModule, Transport} from "@nestjs/microservices";

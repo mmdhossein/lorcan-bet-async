@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { PaymentController } from './app.controller';
-import { PaymentService } from './app.service';
+import { PaymentController } from './controller/app.controller';
+import { PaymentService } from './service/app.service';
 import {ConfigModule, ConfigService} from "@nestjs/config";
 import {TypeOrmModule, TypeOrmModuleAsyncOptions} from "@nestjs/typeorm";
 import {ClientsModule, Transport} from "@nestjs/microservices";

@@ -1,7 +1,7 @@
 import {Controller, Inject} from '@nestjs/common';
-import {OrderService} from './app.service';
+import {OrderService} from '../service/app.service';
 import {ClientKafka, EventPattern, MessagePattern} from "@nestjs/microservices";
-import {Order} from "./entities/order.entities";
+import {Order} from "../entities/order.entities";
 
 @Controller()
 export class AppController {

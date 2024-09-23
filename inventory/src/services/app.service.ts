@@ -3,7 +3,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {Inventory} from "../entities/inventory.entity";
 import {EntityManager, Repository} from "typeorm";
 import * as retry from 'async-retry'
-import {IOrder} from "../interface/order.interface";
+import {IOrder} from "../entities/interface/order.interface";
 import {OrderLog, ProcessCommand, ProcessStatus} from "../entities/log.entity";
 import {ClientKafka} from "@nestjs/microservices";
 

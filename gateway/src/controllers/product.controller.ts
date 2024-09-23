@@ -1,9 +1,9 @@
 import {Body, Controller, Delete, Get, Inject, Post, Put} from '@nestjs/common';
 import { ProductService } from '../services/product.service';
-import {IProduct} from "../services/interfaces/product.interface";
+import {IProduct} from "../entities/interfaces/product.interface";
 import {ClientKafka} from "@nestjs/microservices";
 import {ApiBody} from "@nestjs/swagger";
-import {ProductDto} from "../services/dtos/product.dto";
+import {ProductDto} from "../entities/dtos/product.dto";
 import {Kafka} from "kafkajs";
 
 @Controller('product')

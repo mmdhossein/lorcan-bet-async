@@ -1,7 +1,7 @@
 import {Body, Controller, Inject, Post} from "@nestjs/common";
 import {ApiBody} from "@nestjs/swagger";
 import {ClientKafka} from "@nestjs/microservices";
-import {InventoryDto} from "../services/dtos/inventory.dto";
+import {InventoryDto} from "../entities/dtos/inventory.dto";
 import {InventoryService} from "../services/inventory.service";
 
 @Controller('inventory')

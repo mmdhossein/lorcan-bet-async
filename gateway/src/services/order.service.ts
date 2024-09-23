@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@nestjs/common';
 import {ClientKafka} from "@nestjs/microservices";
-import {OrderDto} from "./dtos/order.dto";
+import {OrderDto} from "../entities/dtos/order.dto";
 
 @Injectable()
 export class OrderService {

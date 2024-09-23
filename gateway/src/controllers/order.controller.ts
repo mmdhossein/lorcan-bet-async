@@ -1,7 +1,7 @@
 import {Body, Controller, Inject, Post} from "@nestjs/common";
 import {ApiBody} from "@nestjs/swagger";
 import {OrderService} from "../services/order.service";
-import {OrderDto} from "../services/dtos/order.dto";
+import {OrderDto} from "../entities/dtos/order.dto";
 import {ClientKafka} from "@nestjs/microservices";
 
 @Controller('order')

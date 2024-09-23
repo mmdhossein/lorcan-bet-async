@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
+import { AppController } from './controller/app.controller';
 import { InventoryService } from './services/app.service';
 import {ConfigModule, ConfigService} from "@nestjs/config";
 import {TypeOrmModule, TypeOrmModuleAsyncOptions} from "@nestjs/typeorm";

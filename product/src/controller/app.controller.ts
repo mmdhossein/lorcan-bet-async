@@ -1,7 +1,7 @@
-import {Controller, Get, Post} from '@nestjs/common';
-import { ProductService } from './services/app.service';
-import {Product} from "./entities/product.entity";
-import {Ctx, EventPattern, MessagePattern, Payload, RmqContext} from "@nestjs/microservices";
+import {Controller,} from '@nestjs/common';
+import { ProductService } from '../services/app.service';
+import {Product} from "../entities/product.entity";
+import {MessagePattern,} from "@nestjs/microservices";
 @Controller('product')
 export class AppController {
   constructor(private readonly appService: ProductService) {}
