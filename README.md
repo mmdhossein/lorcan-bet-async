@@ -107,7 +107,7 @@ These are technologies/frameworks i used for the project.
 * [![Laravel][Laravel.com]][Laravel-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![JQuery][JQuery.com]][JQuery-url]
-* [![kafka][kafka]][JQuery-url]
+* [![kafka][kafka.apache.org]][JQuery-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
