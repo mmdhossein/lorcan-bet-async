@@ -99,7 +99,7 @@ Here's a brief explanation:
 These are technologies/frameworks i used for the project.
 
 
-* [![Kafka][apache kafka]][kafka-url]
+* [![Kafka][apache kafka]][Kafka-url]
 * [![React][React.js]][React-url]
 * [![Vue][Vue.js]][Vue-url]
 * [![Angular][Angular.io]][Angular-url]
