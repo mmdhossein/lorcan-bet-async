@@ -90,7 +90,7 @@ This project is an ecommerce-style microservices which contains product, invento
 Here's a brief explanation:
 * product microservice is responsible for creating, updating and delete each product in the system
 * inventory is a reservation container to interact with order services while assigning products and take control on remaining products
-* 
+* order is responsible for assigning products, making sure each order will be processed as success or if failed in case of retries reached more than 5 times, products reservation will be invalidated and released
 
 Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
 
