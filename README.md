@@ -107,7 +107,7 @@ These are technologies/frameworks i used for the project.
 * [![Laravel][Laravel.com]][Laravel-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![JQuery][JQuery.com]][JQuery-url]
-* [![kafka][Kafka.apache.org]][JQuery-url]
+* [![kafka][Kafka.apache.org]][Kafka-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -276,4 +276,5 @@ Use this space to list resources you find helpful and would like to give credit 
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
 [Kafka.apache.org]: https://kafka.apache.org/trademark
+[Kafka-url]:https://kafka.apache.org/trademark
 
