@@ -99,7 +99,7 @@ Here's a brief explanation:
 These are technologies/frameworks i used for the project.
 
 
-* [![Kafka][apache kafka]][Kafka-url]
+* [![Kafka][apache kafka]][kafka-url]
 * [![React][React.js]][React-url]
 * [![Vue][Vue.js]][Vue-url]
 * [![Angular][Angular.io]][Angular-url]
@@ -274,4 +274,4 @@ Use this space to list resources you find helpful and would like to give credit 
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
-[Kafka-url]: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDCsnH-LecjXUO0ujaEgMSALxOVGEf_7KSZA&s
+[kafka-url]: [https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDCsnH-LecjXUO0ujaEgMSALxOVGEf_7KSZA&s](https://kafka.apache.org/)
