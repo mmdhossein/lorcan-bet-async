@@ -89,8 +89,8 @@ This project is an ecommerce-style microservices which contains product, invento
 
 Here's a brief explanation:
 * product microservice is responsible for creating, updating and delete each product in the system
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
+* inventory is a reservation container to interact with order services while assigning products and take control on remaining products
+* 
 
 Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
 
