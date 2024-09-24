@@ -85,10 +85,10 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-This project is a simulation of ecommerce microservices which contains product, inventory, order managements system and also a payment service whith multiple failure to simulate real-production scenraio on each call.
+This project is an ecommerce-style microservices which contains product, inventory, order managements system and also a payment service with multiple failure to simulate real-production scenraio on each call.
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
+Here's a brief explanation:
+* product microservice is responsible for creating, updating and delete each product in the system
 * You shouldn't be doing the same tasks over and over like creating a README from scratch
 * You should implement DRY principles to the rest of your life :smile:
 
