@@ -18,10 +18,14 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
+
+[comment]: <> ([![Contributors][contributors-shield]][contributors-url])
+
+[comment]: <> ([![Forks][forks-shield]][forks-url])
+
+[comment]: <> ([![Stargazers][stars-shield]][stars-url])
+
+[comment]: <> ([![Issues][issues-shield]][issues-url])
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
@@ -83,9 +87,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://react.dev/)
 
-This project is an ecommerce-style microservices which contains product, inventory, order managements system and also a payment service with multiple failure to simulate real-production scenraio on each call.
+This project is an ecommerce microservices which contains product, inventory, order managements system and also a payment service with multiple failure to simulate real-production scenraio on each call.
 
 Here's a brief explanation:
 * product microservice is responsible for creating, updating and delete each product in the system
@@ -99,15 +103,10 @@ Here's a brief explanation:
 These are technologies/frameworks i used for the project.
 
 
-* [![Kafka][apache kafka]][React-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
-* [![kafka][Kafka.apache.org]][Kafka-url]
+
+* [<img height="30" src="https://miro.medium.com/v2/resize:fit:1400/1*blXyzL2AgrmMczxATGWO4g.png" width="100"/>][nest-url]
+* [<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsLpioqB5oHBOSaqjCXGu5unmOL5OmWLrDVQ&s" height="30" width="100"/>][kafka-url]
+*  [<img src="https://api.civo.com/k3s-marketplace/postgresql.png" height="30" width="100"/>][postgres-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -275,6 +274,8 @@ Use this space to list resources you find helpful and would like to give credit 
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
-[Kafka.apache.org]: https://kafka.apache.org/
-[Kafka-url]:https://kafka.apache.org/trademark
+[Kafka.apache.org]: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKUqi8UKOYSCtY1cCAtBKaPVnJD1qWN3zBCw&s
+[kafka-url]:https://kafka.apache.org/trademark
+[nest-url]:https://nestjs.com/
+[postgres-url]:https://www.postgresql.org/
 
