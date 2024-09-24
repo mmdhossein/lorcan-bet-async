@@ -275,4 +275,4 @@ Use this space to list resources you find helpful and would like to give credit 
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
-[Kafka.apache.org]: [https://kafka.apache.org/](https://lh3.googleusercontent.com/proxy/FKe2rKJy9hFra58LIYpPUf_2ie7CMBkH1v0l8RCuLNpP0Q5mihYOKmvlGsvAUEWVXFDSGBqRq0zyPO6QbLUcmWea)
+[Kafka.apache.org]: https://lh3.googleusercontent.com/proxy/FKe2rKJy9hFra58LIYpPUf_2ie7CMBkH1v0l8RCuLNpP0Q5mihYOKmvlGsvAUEWVXFDSGBqRq0zyPO6QbLUcmWea
