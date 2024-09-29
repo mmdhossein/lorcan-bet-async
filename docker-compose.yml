@@ -36,6 +36,7 @@ services:
       - ./pgdata:/var/lib/postgresql/data
       ports:
       - '5432:5432'
+      hostname: db
     gateway:
       build: ./gateway
       restart: always
@@ -55,7 +56,7 @@ services:
          - kafka
         env_file:
           - .env
-       #hostname: order
+        # hostname: order
      inventory:
        build: ./inventory
        restart: always
