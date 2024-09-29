@@ -127,8 +127,8 @@ This is an example of how to list things you need to use the software and how to
   ```
 
 ### Installation
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+Execute `docker network create infrastructure && cp .env && docker-compose up -d` from the root of the repository to bring up the whole microservices.
+gateway is listening on port 3000
 
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
