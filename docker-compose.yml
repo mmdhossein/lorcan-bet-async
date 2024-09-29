@@ -25,6 +25,15 @@ services:
     #command: ["sh", "-c", "
      # kafka-topics.sh --create --topic gateway-consumer --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1 &&
       #kafka-server-start.sh /opt/kafka/config/server.properties"]
-    gateway:
-    docker exec --workdir /opt/kafka/bin/ -it broker sh ====> go to kafka docker container and run below script
-    ./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic test-topic  
+    db:
+      image: postgres
+      restart: always
+      environment:
+      - POSTGRES_PASSWORD=postgres
+      container_name: postgres
+      volumes:
+      - ./pgdata:/var/lib/postgresql/data
+      ports:
+      - '5432:5432'
+      
+    
