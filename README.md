@@ -142,7 +142,9 @@ gateway is listening on port 3000
 ## Architecture overview
 The main purpose of this project is to illustrate an event based ecommerce consisting of multiple microservices that interact via kafka message broker including both request/response and publish/subscribe methods.
 If there was a need to process after getting response from another microservice (like payment in order ) immediately, the request/response model was choosen, otherwise publish/subscribe was choosen when there was a need to decoupling services for asynchronous communication.
-When a new order is submitted from the client an asynchronous product reservation event is emitted from order service, once inventory services 
+When a new order is submitted from the client an asynchronous product reservation event is emitted from order service, once inventory be informed of the new request, it tries to deduct reservation quantity from available products by starting new transaction with Pessimistic lock condition, that way we can ensure there is no race conditioning nor dirty writes on concurrent events on multiple inventory services.
+After order reservation was done successfully, again, another event is emitted back from inventory to order microservice to resume the payment processing and consequently finalizing the order.
+Payment is consist of an inquiry api, incase of network erros or any other failures that there is a need to know the result of the payment, also failure scenario like timeout and not enough fund are simulated for demostration of retries mechanism which is based on exponential backoff.
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
