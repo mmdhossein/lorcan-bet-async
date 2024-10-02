@@ -111,33 +111,17 @@ These are technologies/frameworks i used for the project.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-<!-- GETTING STARTED -->
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
 ### Installation
-Execute `docker network create infrastructure && cp .env && docker-compose up -d` from the root of the repository to bring up the whole microservices.
 gateway is listening on port 3000
 
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/Denrox/nestjs-microservices-example.git -b main
    ```
-3. Install NPM packages
+3. Use docker compose and execute below command from the root of the repository to bring up the whole microservices.
    ```sh
-   npm install
+   docker network create infrastructure && cp .env && docker-compose up -d
    ```
 4. Enter your API in `config.js`
    ```js
