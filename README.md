@@ -142,6 +142,7 @@ gateway is listening on port 3000
 ## Architecture overview
 The main purpose of this project is to illustrate an event based ecommerce consisting of multiple microservices that interact via kafka message broker including both request/response and publish/subscribe methods.
 If there was a need to process after getting response from another microservice (like payment in order ) immediately, the request/response model was choosen, otherwise publish/subscribe was choosen when there was a need to decoupling services for asynchronous communication.
+When a new order is submitted from the client an asynchronous product reservation event is emitted from order service, once inventory services 
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
