@@ -4,6 +4,8 @@ services:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
+    networks:
+      - ecommerce
   kafka:
     image: wurstmeister/kafka
     ports:
@@ -22,6 +24,8 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_BROKER_ID: 1
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      networks:
+        - ecommerce
     #command: ["sh", "-c", "
      # kafka-topics.sh --create --topic gateway-consumer --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1 &&
       #kafka-server-start.sh /opt/kafka/config/server.properties"]
@@ -38,6 +42,8 @@ services:
       ports:
       - '5432:5432'
       hostname: db
+      networks:
+        - ecommerce
     gateway:
       build: ./gateway
       restart: always
@@ -49,6 +55,8 @@ services:
         - .env
       ports:
         - "3000:3000"
+      networks:
+        - ecommerce
      order:
        build: ./order
        restart: always
@@ -57,7 +65,8 @@ services:
          - kafka
         env_file:
           - .env
-        # hostname: order
+        networks:
+          - ecommerce
      inventory:
        build: ./inventory
        restart: always
@@ -80,6 +89,8 @@ services:
          - kafka
         env_file:
           - .env
+        networks:
+          - ecommerce
       pgadmin:
         image: dpage/pgadmin4
         restart: always
@@ -91,5 +102,10 @@ services:
           - '5050:80'
         depends_on:
           - db
+        networks:
+          - ecommerce
+networks:
+  ecommerce:
+    driver: bridge
       
     
