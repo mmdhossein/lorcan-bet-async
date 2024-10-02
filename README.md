@@ -139,9 +139,9 @@ gateway is listening on port 3000
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+## Architecture overview
+The main purpose of this project is to illustrate an event based ecommerce consisting of multiple microservices that interact via kafka message broker including both request/response and publish/subscribe methods.
+If there was a need to process after getting response from another microservice (like payment in order ) immediately, the request/response model was choosen, otherwise publish/subscribe was choosen when there was a need to decoupling services for asynchronous communication.
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
@@ -213,7 +213,6 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
 * [Choose an Open Source License](https://choosealicense.com)
 * [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
