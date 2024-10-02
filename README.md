@@ -114,24 +114,26 @@ These are technologies/frameworks i used for the project.
 ### Installation
 gateway is listening on port 3000
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/Denrox/nestjs-microservices-example.git -b main
    ```
-3. Use docker compose to build all services images execute below command from the root of the repository.
+2. Use docker compose to build all services images execute below command from the root of the repository.
    ```sh
    docker-compose build
    ```
-4. Run this command to start all containers
+3. Run this command to start all containers
    ```sh
    docker-compose up -d
    ```
-5. Access sawgger ui from gateway on port `3000` to test services.
+4. Access sawgger ui from gateway on port `3000` to test services.
    ```sh
    http://localhost:3000/swagger
    ```
-
+5. Bring down services   
+   ```sh
+   docker-compose down
+   ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
