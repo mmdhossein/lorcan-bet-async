@@ -119,18 +119,17 @@ gateway is listening on port 3000
    ```sh
    git clone https://github.com/Denrox/nestjs-microservices-example.git -b main
    ```
-3. Use docker compose and execute below command from the root of the repository to bring up the whole microservices.
+3. Use docker compose to build all services images execute below command from the root of the repository.
    ```sh
-   docker network create infrastructure && cp .env && docker-compose up -d
+   docker-compose build
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-5. Change git remote url to avoid accidental pushes to base project
+4. Run this command to start all containers
    ```sh
-   git remote set-url origin github_username/repo_name
-   git remote -v # confirm the changes
+   docker-compose up -d
+   ```
+5. Access sawgger ui from gateway on port `3000` to test services.
+   ```sh
+   http://localhost:3000/swagger
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
