@@ -61,7 +61,7 @@ npx ts-node ./node_modules/typeorm/cli.js migration:run -d config/dataSourceLoca
 Typeorm will display the migration SQL details and will commit them :
 
 <p align="center">
-<img  src="resource/migrationRun.PNG" alt="drawing"/>
+<img  src="resource/migrationRun.PNG" alt="drawing" width="700"/>
 </p>
 
 ## Architecture overview
