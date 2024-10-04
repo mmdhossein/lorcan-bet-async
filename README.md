@@ -41,7 +41,7 @@ gateway is listening on port 3000
    ```sh
    docker-compose down
    ```
-## Immigration
+## Migration
 First we need to generate a migration file:
 ```sh
 npm run typeorm migration:run -- -d config/dataSourceLocal.ts
