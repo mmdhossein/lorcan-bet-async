@@ -4,6 +4,7 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/inventory" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/log" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/migration/product" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/order" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/payment" vcs="Git" />
   </component>
