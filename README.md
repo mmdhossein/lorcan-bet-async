@@ -7,6 +7,8 @@ Here's a brief explanation:
 * inventory is a reservation container to interact with order services while assigning products and take control on remaining products
 * order is responsible for assigning products, making sure each order will be processed as success or if failed in case of payment (retries reached more than 5 times) products reservation will be invalidated and released.
 * payment microservice is essentially an interface to settle payments related to each order, it also simulates failed transactions, timed out beside processing payments, it also exposes an inquiry method for callers to be notified of the payment transaction status.
+* migration is an stand alone app that leverages any migration related tasks and not interfering with other parts of the microservices to bring zero down time for such tasks.
+* gateway an interface to call product services and also orders from client side
 
 
 ### Built With
