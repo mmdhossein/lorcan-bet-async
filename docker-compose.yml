@@ -63,6 +63,8 @@ services:
     depends_on:
       - db
       - kafka
+    env_file:
+      - .env
     networks:
       - ecommerce
   payment:
