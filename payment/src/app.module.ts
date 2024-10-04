@@ -10,9 +10,10 @@ import {Payment} from "./entities/payment.entities";
 
 
 @Module({
-  imports:[    ConfigModule.forRoot({
-    envFilePath: './config/.env.dev',
-  }),
+  imports:[
+  //     ConfigModule.forRoot({
+  //   envFilePath: './config/.env.dev',
+  // }),
     TypeOrmModule.forRootAsync({imports:[ConfigModule],
       useFactory:(configService:ConfigService)=>({
         type: 'postgres',

@@ -8,9 +8,10 @@ import {ClientsModule, ClientsProviderAsyncOptions, Transport} from "@nestjs/mic
 import {ClientsModuleAsyncOptions} from "@nestjs/microservices/module/interfaces";
 
 @Module({
-  imports: [    ConfigModule.forRoot({
-    envFilePath: './config/.env.dev',
-  }),
+  imports: [
+  //     ConfigModule.forRoot({
+  //   envFilePath: './config/.env.dev',
+  // }),
     TypeOrmModule.forRootAsync({imports:[ConfigModule],
     useFactory:(configService:ConfigService)=>({
       type: 'postgres',

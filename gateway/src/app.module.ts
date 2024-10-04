@@ -11,9 +11,11 @@ import {InventoryService} from "./services/inventory.service";
 import {InventoryController} from "./controllers/inventory.controller";
 
 @Module({
-  imports: [  ConfigModule.forRoot({
-    envFilePath: './config/.env.dev',isGlobal:true
-  }), ClientsModule.registerAsync({clients:[{inject:[ConfigService], imports:[ConfigModule], name:"GATEWAY_SERVICE"
+  imports: [
+  //     ConfigModule.forRoot({
+  //   envFilePath: './config/.env.dev',isGlobal:true
+  // })
+       ClientsModule.registerAsync({clients:[{inject:[ConfigService], imports:[ConfigModule], name:"GATEWAY_SERVICE"
   ,useFactory:(configService: ConfigService)=>({name:"GATEWAY_SERVICE",
         transport:Transport.KAFKA,
             options:{client:{clientId:'gateway',

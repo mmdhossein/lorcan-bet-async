@@ -10,9 +10,10 @@ import {OrderLog} from "./entities/log.entity";
 import {Order} from "./entities/order.entities";
 import {Product} from "./entities/product.entity";
 @Module({
-  imports: [    ConfigModule.forRoot({
-    envFilePath: './config/.env.dev',
-  }),
+  imports: [
+  //     ConfigModule.forRoot({
+  //   envFilePath: './config/.env.dev',
+  // }),
     TypeOrmModule.forRootAsync({imports:[ConfigModule],
       useFactory:(configService:ConfigService)=>({
         type: 'postgres',
@@ -22,7 +23,6 @@ import {Product} from "./entities/product.entity";
         password: configService.get<string>('DB_PASS'),
         database: configService.get<string>('DB_NAME'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        //migrations:[__dirname + '/../db-migration/init/*{.ts,.js}'],
         synchronize: true,autoLoadEntities:true,
         options:{}
       }), inject:[ConfigService]} as TypeOrmModuleAsyncOptions),TypeOrmModule.forFeature([OrderLog, Order, Product]),
