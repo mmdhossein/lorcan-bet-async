@@ -1,5 +1,4 @@
 FROM node:20
-RUN npm install
 RUN mkdir -p /var/www/gateway
 WORKDIR /var/www/gateway
 ADD . /var/www/gateway

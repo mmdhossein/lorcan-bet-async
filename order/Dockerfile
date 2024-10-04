@@ -1,5 +1,4 @@
 FROM node:20
-RUN npm install
 RUN mkdir -p /var/www/order
 WORKDIR /var/www/order
 ADD . /var/www/order
