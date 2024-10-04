@@ -40,7 +40,7 @@ services:
     depends_on:
       - db
       - kafka
-      hostname: gateway
+    hostname: gateway
     env_file:
       - .env
     ports:
