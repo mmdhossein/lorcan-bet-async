@@ -64,6 +64,12 @@ Typeorm will display the migration SQL details and will commit them :
 <img  src="resource/migrationRun.PNG" alt="drawing" width="700"/>
 </p>
 
+For executing migration on docker container, above command added right before migration/product app
+begins to start
+```shell
+CMD npm run build npx ts-node ./node_modules/typeorm/cli.js migration:run -d config/dataSourceLocal.ts && npm run start:dev
+```
+
 ## Architecture overview
 The main purpose of this project is to illustrate an event based ecommerce consisting of multiple microservices that interact via kafka message broker including both request/response and publish/subscribe methods.
 If there was a need to process after getting response from another microservice (like payment in order ) immediately, the request/response model was chosen, otherwise publish/subscribe was chosen when there was a need to decoupling services for asynchronous communication.
