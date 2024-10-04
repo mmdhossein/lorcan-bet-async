@@ -1,4 +1,3 @@
-
 services:
   zookeeper:
     image: wurstmeister/zookeeper
@@ -11,101 +10,91 @@ services:
     ports:
       - "9092:9092"
     environment:
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENERS:
-        "INTERNAL://kafka:9090,\
-         EXTERNAL://:9092"
-      KAFKA_ADVERTISED_LISTENERS:
-        "INTERNAL://kafka:9090,\
-         EXTERNAL://185.110.189.239:9092"
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP:
-        "INTERNAL:PLAINTEXT,\
-         EXTERNAL:PLAINTEXT"
+      KAFKA_ZOژOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: "INTERNAL://kafka:9090,EXTERNAL://:9092"
+      KAFKA_ADVERTISED_LISTENERS: "INTERNAL://kafka:9090,EXTERNAL://185.110.189.239:9092"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT"
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_BROKER_ID: 1
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
-      networks:
-        - ecommerce
-    #command: ["sh", "-c", "
-     # kafka-topics.sh --create --topic gateway-consumer --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1 &&
-      #kafka-server-start.sh /opt/kafka/config/server.properties"]
-    db:
-      image: postgres
-      restart: always
-      environment:
+    networks:
+      - ecommerce
+  db:
+    image: postgres
+    restart: always
+    environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=user
-      POSTGRES_DB: premiership
-      container_name: postgres
-      volumes:
+      - POSTGRES_DB=ecommerce
+    container_name: postgres
+    volumes:
       - ./pgdata:/var/lib/postgresql/data
-      ports:
+    ports:
       - '5432:5432'
-      hostname: db
-      networks:
-        - ecommerce
-    gateway:
-      build: ./gateway
-      restart: always
-      depends_on:
-        - db
-        - kafka
+    hostname: db
+    networks:
+      - ecommerce
+  gateway:
+    build: ./gateway
+    restart: always
+    depends_on:
+      - db
+      - kafka
       #hostname: gateway
-      env_file:
-        - .env
-      ports:
-        - "3000:3000"
-      networks:
-        - ecommerce
-     order:
-       build: ./order
-       restart: always
-       depends_on:
-         - db
-         - kafka
-        env_file:
-          - .env
-        networks:
-          - ecommerce
-     inventory:
-       build: ./inventory
-       restart: always
-       depends_on:
-         - db
-         - kafka
-     payment:
-       build: ./payment
-       restart: always
-       depends_on:
-         - db
-         - kafka
-        env_file:
-          - .env
-     product:
-       build: ./product
-       restart: always
-       depends_on:
-         - db
-         - kafka
-        env_file:
-          - .env
-        networks:
-          - ecommerce
-      pgadmin:
-        image: dpage/pgadmin4
-        restart: always
-        container_name: nest-pgadmin4
-        environment:
-          - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-          - PGADMIN_DEFAULT_PASSWORD=pgadmin4
-        ports:
-          - '5050:80'
-        depends_on:
-          - db
-        networks:
-          - ecommerce
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    networks:
+      - ecommerce
+  order:
+    build: ./order
+    restart: always
+    depends_on:
+      - db
+      - kafka
+    env_file:
+      - .env
+    networks:
+      - ecommerce
+  inventory:
+    build: ./inventory
+    restart: always
+    depends_on:
+      - db
+      - kafka
+  payment:
+    build: ./payment
+    restart: always
+    depends_on:
+      - db
+      - kafka
+    env_file:
+      - .env
+  product:
+    build: ./product
+    restart: always
+    depends_on:
+      - db
+      - kafka
+    env_file:
+      - .env
+    networks:
+      - ecommerce
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: nest-pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=pgadmin4
+    ports:
+      - '5050:80'
+    depends_on:
+      - db
+    networks:
+      - ecommerce
 networks:
   ecommerce:
     driver: bridge
-      
-    
+
